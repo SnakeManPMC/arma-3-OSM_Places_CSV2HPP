@@ -39,10 +39,10 @@ void Widget::on_open_csv_clicked()
 		line = in.readLine();
 		QStringList list;
 		list = line.split(",");
-		//ui->textEdit->append("X: " + list[0] + " Y: " + list[1] + " OSM_ID: " + list[2] + " code: " + list[3] + " FCLASS: " + list[4] + " population: " + list[5] + " name: " + list[6]);
+		//ui->textEdit->append("X: " + list[0] + "\nY: " + list[1] + "\nOSM_ID: " + list[2] + "\ncode: " + list[3] + "\nFCLASS: " + list[4] + "\nname: " + list[5] + "\npopulation: " + list[6]);
 
 		// name
-		QString placeName = list[6];
+		QString placeName = list[5];
 		// x
 		float xCoord = list[0].toFloat(&ok);
 		// subtract the terrain builder easting 200,000 coord shizzle
@@ -63,9 +63,10 @@ void Widget::on_open_csv_clicked()
 }
 
 
+// sets cfgLocationType to nameLocal unless we find specific ones like city or village etc
 void Widget::armaType()
 {
-	// set default arma2 cfgLocationType
+	// set default arma3 cfgLocationType
 	armaPlace = "nameLocal";
 
 	if (!tempPlace.compare("village", Qt::CaseInsensitive))
@@ -81,6 +82,11 @@ void Widget::armaType()
 	if (!tempPlace.compare("city", Qt::CaseInsensitive))
 	{
 		armaPlace = "nameCity";
+	}
+
+	if (!tempPlace.compare("peak", Qt::CaseInsensitive))
+	{
+		armaPlace = "Hill";
 	}
 }
 
@@ -157,9 +163,15 @@ hamlet
 locality
 suburb
 
-arma2 cfgLocationTypes:
-NameCityCapital
+08-19-17: came across "peak" for mountain / hill.
+
+arma3 cfgLocationTypes https://community.bistudio.com/wiki/Location
 NameCity
+NameCityCapital
+NameMarine
 NameVillage
-NameLocal
+NameLocal (Will return names like Airport)
+Hill
+Mount
+Airport (On Tanoa only. Tanoan airports have their own location type. On Altis and Stratis, airports are NameLocal)
 */
