@@ -39,10 +39,10 @@ void Widget::on_open_csv_clicked()
 		line = in.readLine();
 		QStringList list;
 		list = line.split(",");
-		//ui->textEdit->append("X: " + list[0] + "\nY: " + list[1] + "\nOSM_ID: " + list[2] + "\ncode: " + list[3] + "\nFCLASS: " + list[4] + "\nname: " + list[5] + "\npopulation: " + list[6]);
+		//ui->textEdit->append("X: " + list[0] + "\nY: " + list[1] + "\nOSM_ID: " + list[2] + "\ncode: " + list[3] + "\nFCLASS: " + list[4] + "\npopulation: " + list[5] + "\nname: " + list[6]);
 
 		// name
-		QString placeName = list[5];
+		QString placeName = list[6];
 		// x
 		float xCoord = list[0].toFloat(&ok);
 		// subtract the terrain builder easting 200,000 coord shizzle
