@@ -19,6 +19,10 @@ private slots:
 	void on_open_csv_clicked();
 	void on_open_csv_pmc_clicked();
 
+	void on_GlobalMapper_clicked();
+
+	void on_GlobalMapperPMC_clicked();
+
 private:
 	Ui::Widget *ui;
 	QString tempPlace,armaPlace;

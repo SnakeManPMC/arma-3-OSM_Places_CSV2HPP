@@ -18,8 +18,8 @@
     <rect>
      <x>9</x>
      <y>9</y>
-     <width>80</width>
-     <height>21</height>
+     <width>91</width>
+     <height>31</height>
     </rect>
    </property>
    <property name="text">
@@ -30,9 +30,9 @@
    <property name="geometry">
     <rect>
      <x>9</x>
-     <y>34</y>
+     <y>104</y>
      <width>631</width>
-     <height>411</height>
+     <height>341</height>
     </rect>
    </property>
   </widget>
@@ -41,12 +41,38 @@
     <rect>
      <x>110</x>
      <y>10</y>
-     <width>101</width>
-     <height>21</height>
+     <width>111</width>
+     <height>31</height>
     </rect>
    </property>
    <property name="text">
     <string>Open CSV (PMC)</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="GlobalMapper">
+   <property name="geometry">
+    <rect>
+     <x>240</x>
+     <y>10</y>
+     <width>111</width>
+     <height>28</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Global Mapper</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="GlobalMapperPMC">
+   <property name="geometry">
+    <rect>
+     <x>380</x>
+     <y>10</y>
+     <width>131</width>
+     <height>28</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Global Mapper PMC</string>
    </property>
   </widget>
  </widget>

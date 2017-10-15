@@ -18,6 +18,7 @@ Widget::~Widget()
 	delete ui;
 }
 
+// QGIS csv
 void Widget::on_open_csv_clicked()
 {
 	QString fileName = QFileDialog::getOpenFileName(this,
@@ -63,34 +64,7 @@ void Widget::on_open_csv_clicked()
 }
 
 
-// sets cfgLocationType to nameLocal unless we find specific ones like city or village etc
-void Widget::armaType()
-{
-	// set default arma3 cfgLocationType
-	armaPlace = "nameLocal";
-
-	if (!tempPlace.compare("village", Qt::CaseInsensitive))
-	{
-		armaPlace = "nameVillage";
-	}
-
-	if (!tempPlace.compare("town", Qt::CaseInsensitive))
-	{
-		armaPlace = "nameCity";
-	}
-
-	if (!tempPlace.compare("city", Qt::CaseInsensitive))
-	{
-		armaPlace = "nameCity";
-	}
-
-	if (!tempPlace.compare("peak", Qt::CaseInsensitive))
-	{
-		armaPlace = "Hill";
-	}
-}
-
-
+// QGIS csv but with limited PMC format
 void Widget::on_open_csv_pmc_clicked()
 {
 	QString fileName = QFileDialog::getOpenFileName(this,
@@ -135,12 +109,98 @@ void Widget::on_open_csv_pmc_clicked()
 	}
 }
 
+
+// Global Mapper csv
+void Widget::on_GlobalMapper_clicked()
+{
+	QString fileName = QFileDialog::getOpenFileName(this,
+	tr("CSV"), "",
+	tr("CSV files (*.csv);;All Files (*)"));
+	QFile file(fileName);
+	file.open(QIODevice::ReadOnly);
+	QTextStream in(&file);
+
+	// header
+	QString line;
+	line = in.readLine();
+
+	bool ok;
+	int nameDigit = 0;
+
+	while (!in.atEnd())
+	{
+		line = in.readLine();
+		QStringList list;
+		list = line.split(",");
+
+		// name
+		QString placeName = list[7];
+		// x
+		float xCoord = list[0].toFloat(&ok);
+		// subtract the terrain builder easting 200,000 coord shizzle
+		xCoord = (xCoord - 200000);
+		// y
+		float yCoord = list[1].toFloat(&ok);
+		// type
+		tempPlace = list[5];
+		armaType();
+		QString placeType = armaPlace;
+		// nameDigit
+		nameDigit++;
+
+		ui->textEdit->append("class place" + QString::number(nameDigit) + "\n{\n\tname = \"" + placeName +
+				     "\";\n\tposition[] = { " + QString::number(xCoord) + ", " + QString::number(yCoord) +
+				     " };\n\ttype = \"" + placeType + "\";\n\tradiusA = 200;\n\tradiusB = 200;\n\tangle = 0;\n};");
+	}
+}
+
+
+// Global Mapper csv but with limited PMC format
+void Widget::on_GlobalMapperPMC_clicked()
+{
+	// uhm, not used? :)
+}
+
+
+// sets cfgLocationType to nameLocal unless we find specific ones like city or village etc
+void Widget::armaType()
+{
+	// set default arma3 cfgLocationType
+	armaPlace = "nameLocal";
+
+	if (!tempPlace.compare("village", Qt::CaseInsensitive))
+	{
+		armaPlace = "nameVillage";
+	}
+
+	if (!tempPlace.compare("town", Qt::CaseInsensitive))
+	{
+		armaPlace = "nameCity";
+	}
+
+	if (!tempPlace.compare("city", Qt::CaseInsensitive))
+	{
+		armaPlace = "nameCity";
+	}
+
+	if (!tempPlace.compare("peak", Qt::CaseInsensitive))
+	{
+		armaPlace = "Hill";
+	}
+}
+
 /*
 official OSM place format:
 X,Y,osm_id,code,fclass,population,name
 
 PMC manually created shapefile format:
 X,Y,NAME,FCLASS
+
+global mapper csv export format:
+X,Y,LABEL,osm_id,code,fclass,population,name
+
+qgis csv export format:
+X,Y,osm_id,code,fclass,population,name
 
 class kerala
 {
