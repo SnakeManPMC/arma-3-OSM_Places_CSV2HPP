@@ -134,7 +134,7 @@ void Widget::on_GlobalMapper_clicked()
 		list = line.split(",");
 
 		// name
-		QString placeName = list[7];
+        QString placeName = list[9];
 		// x
 		float xCoord = list[0].toFloat(&ok);
 		// subtract the terrain builder easting 200,000 coord shizzle
@@ -142,7 +142,7 @@ void Widget::on_GlobalMapper_clicked()
 		// y
 		float yCoord = list[1].toFloat(&ok);
 		// type
-		tempPlace = list[5];
+        tempPlace = list[7];
 		armaType();
 		QString placeType = armaPlace;
 		// nameDigit
