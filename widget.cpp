@@ -10,7 +10,7 @@ Widget::Widget(QWidget *parent) :
 	ui(new Ui::Widget)
 {
 	ui->setupUi(this);
-	setWindowTitle("OSM Places CSV to HPP Converter");
+	setWindowTitle("OSM Places CSV to HPP Converter v0.1.1");
 }
 
 Widget::~Widget()
@@ -134,7 +134,7 @@ void Widget::on_GlobalMapper_clicked()
 		list = line.split(",");
 
 		// name
-        QString placeName = list[9];
+	QString placeName = list[8];
 		// x
 		float xCoord = list[0].toFloat(&ok);
 		// subtract the terrain builder easting 200,000 coord shizzle
@@ -142,7 +142,7 @@ void Widget::on_GlobalMapper_clicked()
 		// y
 		float yCoord = list[1].toFloat(&ok);
 		// type
-        tempPlace = list[7];
+	tempPlace = list[5];
 		armaType();
 		QString placeType = armaPlace;
 		// nameDigit
@@ -188,50 +188,3 @@ void Widget::armaType()
 		armaPlace = "Hill";
 	}
 }
-
-/*
-official OSM place format:
-X,Y,osm_id,code,fclass,population,name
-
-PMC manually created shapefile format:
-X,Y,NAME,FCLASS
-
-global mapper csv export format:
-X,Y,LABEL,osm_id,code,fclass,population,name
-
-qgis csv export format:
-X,Y,osm_id,code,fclass,population,name
-
-class kerala
-{
-	name="Kerala";
-	position[]={26577.84,35438.98};
-	type="NameVillage";
-
-	radiusA=200.00;
-	radiusB=200.00;
-	angle=0.000;
-};
-
-http://wiki.openstreetmap.org/wiki/Key:place
-city
-national_capital
-town
-village
-county
-hamlet
-locality
-suburb
-
-08-19-17: came across "peak" for mountain / hill.
-
-arma3 cfgLocationTypes https://community.bistudio.com/wiki/Location
-NameCity
-NameCityCapital
-NameMarine
-NameVillage
-NameLocal (Will return names like Airport)
-Hill
-Mount
-Airport (On Tanoa only. Tanoan airports have their own location type. On Altis and Stratis, airports are NameLocal)
-*/
