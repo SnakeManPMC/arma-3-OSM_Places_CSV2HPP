@@ -27,6 +27,7 @@ void Widget::on_open_csv_clicked()
 	QFile file(fileName);
 	file.open(QIODevice::ReadOnly);
 	QTextStream in(&file);
+	in.setCodec("UTF-8");
 
 	// header
 	QString line;
@@ -73,6 +74,7 @@ void Widget::on_open_csv_pmc_clicked()
 	QFile file(fileName);
 	file.open(QIODevice::ReadOnly);
 	QTextStream in(&file);
+	in.setCodec("UTF-8");
 
 	// header
 	QString line;
@@ -119,6 +121,7 @@ void Widget::on_GlobalMapper_clicked()
 	QFile file(fileName);
 	file.open(QIODevice::ReadOnly);
 	QTextStream in(&file);
+	in.setCodec("UTF-8");
 
 	// header
 	QString line;
