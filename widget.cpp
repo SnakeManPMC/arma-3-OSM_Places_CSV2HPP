@@ -10,7 +10,7 @@ Widget::Widget(QWidget *parent) :
 	ui(new Ui::Widget)
 {
 	ui->setupUi(this);
-	setWindowTitle("OSM Places CSV to HPP Converter v0.1.1");
+	setWindowTitle("OSM Places CSV to HPP Converter v0.1.2 by PMC");
 }
 
 Widget::~Widget()
@@ -41,10 +41,11 @@ void Widget::on_open_csv_clicked()
 		line = in.readLine();
 		QStringList list;
 		list = line.split(",");
-		//ui->textEdit->append("X: " + list[0] + "\nY: " + list[1] + "\nOSM_ID: " + list[2] + "\ncode: " + list[3] + "\nFCLASS: " + list[4] + "\npopulation: " + list[5] + "\nname: " + list[6]);
 
+		//X,Y,fid,cat,osm_id,code,fclass,population,name
+		//ui->textEdit->append("X: " + list[0] + "\nY: " + list[1] + "\nOSM_ID: " + list[2] + "\ncode: " + list[3] + "\nFCLASS: " + list[6] + "\npopulation: " + list[7] + "\nname: " + list[8]);
 		// name
-		QString placeName = list[6];
+		QString placeName = list[8];
 		// x
 		float xCoord = list[0].toFloat(&ok);
 		// subtract the terrain builder easting 200,000 coord shizzle
@@ -52,7 +53,7 @@ void Widget::on_open_csv_clicked()
 		// y
 		float yCoord = list[1].toFloat(&ok);
 		// type
-		tempPlace = list[4];
+		tempPlace = list[6];
 		armaType();
 		QString placeType = armaPlace;
 		// nameDigit
