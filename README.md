@@ -1,4 +1,6 @@
-# arma-3-OSM_Places_CSV2HPP
+# PMC OSM Places CSV2HPP Converter
+
+[PMC Editing Wiki: ArmA 3 Tools, PMC OSM Places CSV2HPP Converter](https://pmc.editing.wiki/doku.php?id=arma3:tools:pmc-osm-places-csv-2-hpp)
 
 OpenStreetMap (OSM) location place names CSV to ArmA 3 compatible config HPP converter
 
