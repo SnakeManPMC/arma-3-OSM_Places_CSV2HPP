@@ -4,13 +4,14 @@
 #include <qfile.h>
 #include <qfiledialog.h>
 #include <qtextstream.h>
+#include <QDebug>
 
 Widget::Widget(QWidget *parent) :
 	QWidget(parent),
 	ui(new Ui::Widget)
 {
 	ui->setupUi(this);
-	setWindowTitle("OSM Places CSV to HPP Converter v0.1.2 by PMC");
+	setWindowTitle("OSM Places CSV to HPP Converter v0.1.3 by PMC");
 }
 
 Widget::~Widget()
@@ -27,7 +28,7 @@ void Widget::on_open_csv_clicked()
 	QFile file(fileName);
 	file.open(QIODevice::ReadOnly);
 	QTextStream in(&file);
-	in.setCodec("UTF-8");
+    in.setCodec("UTF-8");
 
 	// header
 	QString line;
@@ -122,11 +123,12 @@ void Widget::on_GlobalMapper_clicked()
 	QFile file(fileName);
 	file.open(QIODevice::ReadOnly);
 	QTextStream in(&file);
-	in.setCodec("UTF-8");
+    in.setCodec("UTF-8");
 
 	// header
 	QString line;
 	line = in.readLine();
+    QStringList list;
 
 	bool ok;
 	int nameDigit = 0;
@@ -134,11 +136,13 @@ void Widget::on_GlobalMapper_clicked()
 	while (!in.atEnd())
 	{
 		line = in.readLine();
-		QStringList list;
+        qDebug() << "line is: " << line;
 		list = line.split(",");
+        qDebug() << "list.size: " << list.size();
+        qDebug() << "list[0]: " << list[0];
 
 		// name
-	QString placeName = list[8];
+        QString placeName = list[(list.size()-1)];
 		// x
 		float xCoord = list[0].toFloat(&ok);
 		// subtract the terrain builder easting 200,000 coord shizzle
@@ -146,7 +150,8 @@ void Widget::on_GlobalMapper_clicked()
 		// y
 		float yCoord = list[1].toFloat(&ok);
 		// type
-	tempPlace = list[5];
+        qDebug() << list;
+        tempPlace = list[1];
 		armaType();
 		QString placeType = armaPlace;
 		// nameDigit
